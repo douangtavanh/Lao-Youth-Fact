@@ -36,6 +36,7 @@ const randomValue = array => {
 
 const remainFact = (app, array) => {
   if (Boolean(array.length === 0) === true) {
+    factData = data.fact.slice();
     app.ask('You already get it all.');
   }
 }
@@ -45,10 +46,6 @@ const welcome = app => {
   app.ask(app.buildRichResponse().addSimpleResponse(randomValue(data.welcome.intent)).addSuggestions(['Fact', 'Quick Quiz']));
 }
 const fact = app => {
-  if (!factData) {
-    let factData = factData.push(conefact);
-    app.ask('Hello');
-  }
   remainFact(app, factData);
   let random = randomValue(factData);
   app.ask(app.buildRichResponse().addSimpleResponse(random + '. do you want more fact?').addSuggestions(['Fact']));

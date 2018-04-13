@@ -8,9 +8,9 @@ const welcome = {
 }
 
 const fact = [
-    'Thongloun Sisoulith is a prime minister of Lao PDR',
+    'HE. Thongloun Sisoulith is a prime minister of Lao PDR',
     'Lao PDR has 17 provinces and 1 Capital',
-    'President of National party is Bounyoung Vorlachit',
+    'President of Lao\'s people revolutionary Party is HE. Bounyoung Vorlachit',
     /*
     'President of Lao PDR is HS. Bounyoung Vorlachith',
     'President of National Assembly is HS. Pany Yathortu',
