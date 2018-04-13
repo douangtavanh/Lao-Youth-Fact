@@ -1,12 +1,12 @@
 'use strict';
 
 process.env.DEBUG = 'actions-on-google:*';
-const App = require('actions-on-google').DialogflowApp;
+const { DialogflowApp } = require('actions-on-google');
 const functions = require('firebase-functions');
-
 const data = require('./data');
 const sprintf = require('sprintf-js').sprintf;
 
+//Dialogflow variable
 const intent = {
   welcome: 'welcome',
   fact: 'fact',
@@ -18,13 +18,20 @@ const argument = {
   No: 'No',
 }
 
-const randomValue = array => {
-  return array[Math.floor(Math.random() * array.length)];
+const context = {
+  fact: 'fact',
 }
 
-const deleteFact = array => {
+const conefact = data.fact.slice();
+let factData = conefact.slice();
+
+//Functions
+const delFact = array => {
   factData.splice(factData.indexOf(array), 1);
-  return factData;
+}
+
+const randomValue = array => {
+  return array[Math.floor(Math.random() * array.length)];
 }
 
 const remainFact = (app, array) => {
@@ -33,38 +40,39 @@ const remainFact = (app, array) => {
   }
 }
 
-//Import data from original js and copy them
-const startFact = array => {
-  if ((Boolean(array.length === 0) === true)) {
-    let factData = data.fact.slice();
+//Main intent processing
+const welcome = app => {
+  app.ask(app.buildRichResponse().addSimpleResponse(randomValue(data.welcome.intent)).addSuggestions(['Fact', 'Quick Quiz']));
+}
+const fact = app => {
+  if (!factData) {
+    let factData = factData.push(conefact);
+    app.ask('Hello');
   }
+  remainFact(app, factData);
+  let random = randomValue(factData);
+  app.ask(app.buildRichResponse().addSimpleResponse(random + '. do you want more fact?').addSuggestions(['Fact']));
+  factData.splice(factData.indexOf(random), 1);
 }
 
-//Main process
-exports.laoYouth = functions.https.onRequest((request, response) => {
-  const app = new App({request, response});
-  console.log('Request headers: ' + JSON.stringify(request.headers));
-  console.log('Request body: ' + JSON.stringify(request.body));
+const quiz = app => {
+  app.ask(randomValue(data.quiz));
+}
 
-  const welcome = app => {
-    app.ask(app.buildRichResponse().addSimpleResponse(randomValue(data.welcome.intent)).addSuggestions(['Fact', 'Quick Quiz']));
-  }
+//Intent map
+const actionMap = new Map();
+actionMap.set(intent.welcome, welcome);
+actionMap.set(intent.fact, fact);
+actionMap.set(intent.question, quiz);
 
-  const fact = app => {
-    startFact(factData);   
-    let randomFact = randomValue(factData);
-    remainFact(app, factData);
-    app.ask(app.buildRichResponse().addSimpleResponse(randomFact + '. Do you want more Fact or quik quiz?').addSuggestions(['Fact', 'Quiz']));
-    deleteFact(randomFact);
-  }
-
-  const quiz = app => {
-    app.ask(randomValue(data.quiz));
-  }
-
-  let actionMap = new Map();
-  actionMap.set(intent.welcome, welcome);
-  actionMap.set(intent.fact, fact);
-  actionMap.set(intent.question, quiz);
+//Dialogflow output
+const laoYouth = functions.https.onRequest((request, response) => {
+  const app = new DialogflowApp({ request, response });
+  console.log(`Request headers: ${JSON.stringify(request.headers)}`);
+  console.log(`Request body: ${JSON.stringify(request.body)}`);
   app.handleRequest(actionMap);
 });
+
+module.exports = {
+  laoYouth
+};

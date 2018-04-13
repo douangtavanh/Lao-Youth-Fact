@@ -8,9 +8,9 @@ const welcome = {
 }
 
 const fact = [
-    'HS. Thongloun Sisoulith is a prime minister of Lao PDR',
+    'Thongloun Sisoulith is a prime minister of Lao PDR',
     'Lao PDR has 17 provinces and 1 Capital',
-    'President of National party is HS. Bounyoung Vorlachith',
+    'President of National party is Bounyoung Vorlachit',
     /*
     'President of Lao PDR is HS. Bounyoung Vorlachith',
     'President of National Assembly is HS. Pany Yathortu',
@@ -25,7 +25,7 @@ const fact = [
     'National flag has 3 colours: red, blue and white',
     'There are 49 ethnics in Lao PDR',
     'Lao PDR was structed in 2 December 1975',
-    'Minister of Ministry of Foreign Affair is HS. Saluemxay Kommasith',
+    'Minister of Foreign Affair of Lao PDR is H.E. Saleumxay Kommasith',
     'There are 10 countries in ASEAN',
     'There are 5 counties in the mean time of establish ASEAN: Thailand, Singapore, Philiphine, Malysia and Indonesia',
     'Lao PDR is member of ASEAN in 23 July 1997',
