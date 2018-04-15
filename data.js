@@ -10,9 +10,10 @@ const welcome = {
 const fact = [
     'HE. Thongloun Sisoulith is a prime minister of Lao PDR',
     'Lao PDR has 17 provinces and 1 Capital',
-    'President of Lao\'s people revolutionary Party is HE. Bounyoung Vorlachit',
+    'President of Lao people revolutionary Party is HE. Bounyoung Vorlachit',
     /*
-    'President of Lao PDR is HS. Bounyoung Vorlachith',
+    'President of Lao PDR is H.E. Bounyoung Vorlachith',
+    'Vice president of Lao PDR is Phankham Philavanh',
     'President of National Assembly is HS. Pany Yathortu',
     'National Party establish in 22 March 1955',
     'National Army establish in 20 January 1945',
@@ -28,7 +29,7 @@ const fact = [
     'Minister of Foreign Affair of Lao PDR is H.E. Saleumxay Kommasith',
     'There are 10 countries in ASEAN',
     'There are 5 counties in the mean time of establish ASEAN: Thailand, Singapore, Philiphine, Malysia and Indonesia',
-    'Lao PDR is member of ASEAN in 23 July 1997',
+    'Lao PDR is a member of ASEAN in 23 July 1997',
     'ASEAN establish in 8 August 1967',
     'ASEAN shorted from The Association of Southeast Asian Nations',
     'SSEAYP shorted from The Ship for Southeast Asian and Japanese Youth Program',
@@ -37,6 +38,10 @@ const fact = [
     'ASEAN Headquarter is in Indonesia',
     'ASEAN 3 pillars are ASEAN Political-Security Community Council, ASEAN Economic Community Council and ASEAN Socio-cultural Community Council.',
     'The motto of ASEAN is One Vision One Identity One Community',
+    'Lao SAA shorted from Lao SSEAYP Alumni Association',
+    'The area of Lao PDR is 236.800 KM',
+    'Lao PDR shorted from Lao People Democratic Republic',
+    'There are 17 ministries',
     */
 ]
 

@@ -4,6 +4,7 @@ process.env.DEBUG = 'actions-on-google:*';
 const { DialogflowApp } = require('actions-on-google');
 const functions = require('firebase-functions');
 const data = require('./data');
+const images = require('./images');
 const sprintf = require('sprintf-js').sprintf;
 
 //Dialogflow variable
@@ -21,9 +22,13 @@ const argument = {
 const context = {
   fact: 'fact',
 }
-
+const importFact = data.fact;
 const conefact = data.fact.slice();
 let factData = conefact.slice();
+
+//Check screen available
+
+
 
 //Functions
 const delFact = array => {
@@ -34,10 +39,10 @@ const randomValue = array => {
   return array[Math.floor(Math.random() * array.length)];
 }
 
-const remainFact = (app, array) => {
-  if (Boolean(array.length === 0) === true) {
+const remainFact = (app) => {
+  if ((Boolean(factData.length === 0) === (true))) {
     factData = data.fact.slice();
-    app.ask('You already get it all.');
+    app.ask('You already got it all.');
   }
 }
 
@@ -46,9 +51,20 @@ const welcome = app => {
   app.ask(app.buildRichResponse().addSimpleResponse(randomValue(data.welcome.intent)).addSuggestions(['Fact', 'Quick Quiz']));
 }
 const fact = app => {
-  remainFact(app, factData);
+  const hasScreen = app.hasSurfaceCapability(app.SurfaceCapabilities.SCREEN_OUTPUT);
+  remainFact(app);
   let random = randomValue(factData);
-  app.ask(app.buildRichResponse().addSimpleResponse(random + '. do you want more fact?').addSuggestions(['Fact']));
+  if (!hasScreen) {
+    app.ask(random + '. do you want more fact?');
+  }
+  //Check array index
+  function findFact(element) {
+    return element === random;
+  }
+  if ((images.images[importFact.findIndex(findFact)]) === null) {
+    app.ask(app.buildRichResponse().addSimpleResponse(random + '. do you want more fact?').addSuggestions(['Fact']));
+  }
+  app.ask(app.buildRichResponse().addSimpleResponse(random + '. do you want more fact?').addSuggestions(['Fact']).addBasicCard(app.buildBasicCard(random).setTitle(images.imagesTitle[importFact.findIndex(findFact)]).setImage(images.images[importFact.findIndex(findFact)], images.imagesTitle[importFact.findIndex(findFact)])));
   factData.splice(factData.indexOf(random), 1);
 }
 
