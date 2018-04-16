@@ -8,11 +8,11 @@ const welcome = {
 }
 
 const fact = [
-    'HE. Thongloun Sisoulith is a prime minister of Lao PDR',
+    'H.E. Thongloun Sisoulith is a prime minister of Lao PDR',
     'Lao PDR has 17 provinces and 1 Capital',
-    'President of Lao people revolutionary Party is HE. Bounyoung Vorlachit',
+    'President of Lao people revolutionary Party is H.E. Bounnhang Vorachith',
     /*
-    'President of Lao PDR is H.E. Bounyoung Vorlachith',
+    'President of Lao PDR is H.E. Bounnhang Vorachith',
     'Vice president of Lao PDR is Phankham Philavanh',
     'President of National Assembly is HS. Pany Yathortu',
     'National Party establish in 22 March 1955',
@@ -41,7 +41,7 @@ const fact = [
     'Lao SAA shorted from Lao SSEAYP Alumni Association',
     'The area of Lao PDR is 236.800 KM',
     'Lao PDR shorted from Lao People Democratic Republic',
-    'There are 17 ministries',
+    'There are 18 ministries',
     */
 ]
 

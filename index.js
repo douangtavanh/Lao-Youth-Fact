@@ -12,23 +12,31 @@ const intent = {
   welcome: 'welcome',
   fact: 'fact',
   quiz: 'quiz',
+  factYes: 'factYes',
+  factNo: 'factNo',
+  about: 'about',
 }
 
 const argument = {
   Yes: 'Yes',
   No: 'No',
+  Fact: 'Fact',
+  Quiz: 'Quiz',
 }
 
 const context = {
   fact: 'fact',
+  welcome: 'welcome',
 }
+
+const suggestionChip = [
+  'Yes',
+  'No'
+] 
+
 const importFact = data.fact;
 const conefact = data.fact.slice();
 let factData = conefact.slice();
-
-//Check screen available
-
-
 
 //Functions
 const delFact = array => {
@@ -42,7 +50,7 @@ const randomValue = array => {
 const remainFact = (app) => {
   if ((Boolean(factData.length === 0) === (true))) {
     factData = data.fact.slice();
-    app.ask('You already got it all.');
+    app.tell('I think I run out of fact. Please talk to me again or keep coming back later.');
   }
 }
 
@@ -62,21 +70,51 @@ const fact = app => {
     return element === random;
   }
   if ((images.images[importFact.findIndex(findFact)]) === null) {
-    app.ask(app.buildRichResponse().addSimpleResponse(random + '. do you want more fact?').addSuggestions(['Fact']));
+    app.ask(app.buildRichResponse().addSimpleResponse(random + '. do you want more fact?').addSuggestions(['Yes', 'No']));
   }
-  app.ask(app.buildRichResponse().addSimpleResponse(random + '. do you want more fact?').addSuggestions(['Fact']).addBasicCard(app.buildBasicCard(random).setTitle(images.imagesTitle[importFact.findIndex(findFact)]).setImage(images.images[importFact.findIndex(findFact)], images.imagesTitle[importFact.findIndex(findFact)])));
+  app.ask(app.buildRichResponse().addSimpleResponse(random + '. do you want more fact?').addSuggestions(['Yes', 'No']).addBasicCard(app.buildBasicCard(random).setTitle(images.imagesTitle[importFact.findIndex(findFact)]).setImage(images.images[importFact.findIndex(findFact)], images.imagesTitle[importFact.findIndex(findFact)])));
   factData.splice(factData.indexOf(random), 1);
 }
 
+const factYes = app => {
+  const hasScreen = app.hasSurfaceCapability(app.SurfaceCapabilities.SCREEN_OUTPUT);
+  remainFact(app);
+  let random = randomValue(factData);
+  if (!hasScreen) {
+    app.ask(random + '. do you want more fact?');
+  }
+  //Check array index
+  function findFact(element) {
+    return element === random;
+  }
+  if ((images.images[importFact.findIndex(findFact)]) === null) {
+    app.ask(app.buildRichResponse().addSimpleResponse(random + '. do you want more fact?').addSuggestions(['Yes', 'No']));
+  }
+  app.ask(app.buildRichResponse().addSimpleResponse(random + '. do you want more fact?').addSuggestions(['Yes', 'No']).addBasicCard(app.buildBasicCard(random).setTitle(images.imagesTitle[importFact.findIndex(findFact)]).setImage(images.images[importFact.findIndex(findFact)], images.imagesTitle[importFact.findIndex(findFact)])));
+  factData.splice(factData.indexOf(random), 1);
+}
+
+const factNo = app => {
+  app.tell('I hope to see you next time. Have a nice day!');
+}
+
 const quiz = app => {
-  app.ask(randomValue(data.quiz));
+  app.tell('I\'m sorry, my quick quiz is not available yet, meanwhile, I can tell you only fact.');
+}
+
+const about = app => {
+  app.ask('Lao Youth Facts will tell you the random facts about SEAYP, ASEAN, Lao PDR facts. Therefore, It\'s might help you to prepare for SSEAYP exam. Do you want to hear facts?');
 }
 
 //Intent map
 const actionMap = new Map();
 actionMap.set(intent.welcome, welcome);
 actionMap.set(intent.fact, fact);
-actionMap.set(intent.question, quiz);
+actionMap.set(intent.quiz, quiz);
+actionMap.set(intent.factYes, factYes);
+actionMap.set(intent.factNo, factNo);
+actionMap.set(intent.about, about);
+
 
 //Dialogflow output
 const laoYouth = functions.https.onRequest((request, response) => {
