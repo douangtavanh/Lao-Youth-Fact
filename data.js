@@ -1,18 +1,18 @@
 const deepFreeze = require('deepfreeze');
 
 const welcome = {
-    'intent': [
+    intent: [
     'Hello, Welcome to Lao Youth fact, do you want fact or quick quiz?',
     'Welcome to Lao Youth fact, I\'m here to help you prepare your SSEAYP exam. which one do you want to hear fact or quick quiz?'
     ]
 }
 
 const fact = [
-    'H.E. Thongloun Sisoulith is a prime minister of Lao PDR',
+    'Thongloun Sisoulith is a prime minister of Lao PDR',
     'Lao PDR has 17 provinces and 1 Capital',
-    'President of Lao people revolutionary Party is H.E. Bounnhang Vorachith',
+    'President of Lao people revolutionary Party is Bounnhang Vorachith',
     /*
-    'President of Lao PDR is H.E. Bounnhang Vorachith',
+    'President of Lao PDR is Bounnhang Vorachith',
     'Vice president of Lao PDR is Phankham Philavanh',
     'President of National Assembly is HS. Pany Yathortu',
     'National Party establish in 22 March 1955',
@@ -26,7 +26,7 @@ const fact = [
     'National flag has 3 colours: red, blue and white',
     'There are 49 ethnics in Lao PDR',
     'Lao PDR was structed in 2 December 1975',
-    'Minister of Foreign Affair of Lao PDR is H.E. Saleumxay Kommasith',
+    'Minister of Foreign Affair of Lao PDR is Saleumxay Kommasith',
     'There are 10 countries in ASEAN',
     'There are 5 counties in the mean time of establish ASEAN: Thailand, Singapore, Philiphine, Malysia and Indonesia',
     'Lao PDR is a member of ASEAN in 23 July 1997',
@@ -45,13 +45,7 @@ const fact = [
     */
 ]
 
-const quiz = [
-    'Who is prime minister of Lao PDR',
-    'How many province in Lao PDR'
-]
-
 module.exports = deepFreeze({
     welcome,
     fact,
-    quiz
 });

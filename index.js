@@ -4,6 +4,7 @@ process.env.DEBUG = 'actions-on-google:*';
 const { DialogflowApp } = require('actions-on-google');
 const functions = require('firebase-functions');
 const data = require('./data');
+const quizData = require('./quiz-data');
 const images = require('./images');
 const sprintf = require('sprintf-js').sprintf;
 
@@ -29,14 +30,17 @@ const context = {
   welcome: 'welcome',
 }
 
-const suggestionChip = [
-  'Yes',
-  'No'
-] 
-
+//Copy facts data from original
 const importFact = data.fact;
 const conefact = data.fact.slice();
 let factData = conefact.slice();
+
+//Copy quiz data from original
+let coneQuiz = {};
+for (let i in quizData.data) {
+  coneQuiz[i] = quizData.data[i];
+}
+let question = coneQuiz;
 
 //Functions
 const delFact = array => {
@@ -47,10 +51,21 @@ const randomValue = array => {
   return array[Math.floor(Math.random() * array.length)];
 }
 
-const remainFact = (app) => {
+const remainFact = app => {
   if ((Boolean(factData.length === 0) === (true))) {
     factData = data.fact.slice();
     app.tell('I think I run out of fact. Please talk to me again or keep coming back later.');
+  }
+}
+
+const remainQuiz = app => {
+  if ((Boolean(Object.keys(question).length === 0)) === (true)) {
+    coneQuiz = {};
+    for (let x in quizData.data) {
+      coneQuiz[x] = quizData.data[x];
+    }
+    question = coneQuiz;
+    app.tell('You already got it all');
   }
 }
 
@@ -99,7 +114,11 @@ const factNo = app => {
 }
 
 const quiz = app => {
-  app.tell('I\'m sorry, my quick quiz is not available yet, meanwhile, I can tell you only fact.');
+  //app.tell('I\'m sorry, my quick quiz is not available yet, meanwhile, I can tell you only fact.');
+  remainQuiz(app);
+  let randomQuiz = randomValue(Object.getOwnPropertyNames(question));
+  app.ask((Object.getOwnPropertyDescriptor(question, randomQuiz).value));
+  delete question[randomQuiz];
 }
 
 const about = app => {
