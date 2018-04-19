@@ -53,6 +53,7 @@ app.intent('welcome', conv => {
 });
 
 app.intent('fact', conv => {
+  conv.data.count = 0;
   if ((Boolean(factData.length === 0) === (true))) {
     factData = data.fact.slice();
     conv.close('I think I run out of fact. Please talk to me again or keep coming back later.');
@@ -90,34 +91,40 @@ app.intent('factYes', conv => {
   if ((Boolean(factData.length === 0) === (true))) {
     factData = data.fact.slice();
     conv.close('I think I run out of fact. Please talk to me again or keep coming back later.');
+  } else if (conv.data.count === 5) {
+    conv.close('I still have another facts, yet I will tell you more facts next time.');
+    conv.data.count = 0;
   } else {
     let random = randomValue(factData);
-  if (!conv.hasScreen) {
-    conv.ask(random + '. do you want more fact?');
-  } else {
-    let findFact = element => {
-      return element === random;
-    }
-    if ((images.images[importFact.findIndex(findFact)]) === null) {
-      conv.ask(random);
+    if (!conv.hasScreen) {
+      conv.ask(random + '. do you want more fact?');
+      conv.data.count++;
+    } else {
+      let findFact = element => {
+        return element === random;
+      }
+      if ((images.images[importFact.findIndex(findFact)]) === null) {
+        conv.ask(random);
+        conv.ask('Do you want more facts?');
+        conv.ask(new Suggestions(['Yes', 'No']));
+        conv.data.count++;
+      } else {
+        conv.ask(random);
+        conv.ask(new BasicCard({
+          text: random,
+          title: images.imagesTitle[importFact.findIndex(findFact)],
+          image: new Image({
+            url: images.images[importFact.findIndex(findFact)],
+            alt: images.imagesTitle[importFact.findIndex(findFact)],
+          })
+        }));
       conv.ask('Do you want more facts?');
       conv.ask(new Suggestions(['Yes', 'No']));
-    } else {
-      conv.ask(random);
-      conv.ask(new BasicCard({
-        text: random,
-        title: images.imagesTitle[importFact.findIndex(findFact)],
-        image: new Image({
-          url: images.images[importFact.findIndex(findFact)],
-          alt: images.imagesTitle[importFact.findIndex(findFact)],
-        })
-      }));
-    conv.ask('Do you want more facts?');
-    conv.ask(new Suggestions(['Yes', 'No']));
+      conv.data.count++;
+      }
     }
-  }
-  factData.splice(factData.indexOf(random), 1);
-  }
+    factData.splice(factData.indexOf(random), 1);
+    }
 });
 
 app.intent('factNo', conv => {
