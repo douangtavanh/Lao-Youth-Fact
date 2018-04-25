@@ -59,7 +59,7 @@ const LaoPDRGovMinistries = null;
 //LPRYU
 const LaoYouthUnion = null;
 const LaoYouthMember = null;
-const LaoPrioneer = null;
+const LaoJuvenile = null;
 const LaoYoungPrioneer = null;
 const LPRYUShorted = null;
 
@@ -93,7 +93,7 @@ const images = [
     KaysonePhomvihane[0],
     Souphanouvong[0],
     LaoYouthMember,
-    LaoPrioneer,
+    LaoJuvenile,
     LaoYoungPrioneer,
     NationalFlag[0],
     LaoEthnics,
@@ -129,7 +129,7 @@ const imagesTitle = [
     KaysonePhomvihane[1],
     Souphanouvong[1],
     LaoYouthMember,
-    LaoPrioneer,
+    LaoJuvenile,
     LaoYoungPrioneer,
     NationalFlag[1],
     LaoEthnics,
